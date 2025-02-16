@@ -1,7 +1,6 @@
 package com.codingforfun.controller;
 
 import com.codingforfun.service.agent.ChatAgent;
-import com.codingforfun.service.agent.DatabaseAgent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,15 +13,9 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class AiController {
     private final ChatAgent chatAgent;
-    private final DatabaseAgent databaseAgent;
 
     @PostMapping("/chat")
     public Mono<String> handleChat(@RequestBody String message) {
         return chatAgent.processChat(message);
-    }
-
-    @PostMapping("/db-operation")
-    public Mono<String> handleDbOperation(@RequestBody String instruction) {
-        return databaseAgent.processDatabaseOperation(instruction);
     }
 }

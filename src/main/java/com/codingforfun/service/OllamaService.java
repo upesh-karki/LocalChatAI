@@ -10,6 +10,8 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -22,20 +24,12 @@ public class OllamaService {
                 .uri("/api/generate")
                 .bodyValue(request)
                 .retrieve()
-                .onStatus(
-                        // Fixed: Use lambda instead of method reference
-                        status -> status == HttpStatus.NOT_FOUND,
-                        response -> {
-                            log.error("Model not found: {}", request.getModel());
-                            return Mono.error(new RuntimeException("Model not found"));
-                        }
-                )
-                .onStatus(
-                        // Fixed: Correct status check
-                        status -> status.isError(),
-                        response -> handleErrorResponse(response)
-                )
-                .bodyToMono(OllamaResponse.class);
+                .bodyToMono(OllamaResponse.class)
+                .timeout(Duration.ofMinutes(1)) // Per-request timeout
+                .retry(2) // Retry twice on failures
+                .doOnSubscribe(sub -> log.info("Starting request for model: {}", request.getModel()))
+                .doOnError(e -> log.error("Ollama request failed: {}", e.getMessage()))
+                .doOnSuccess(res -> log.info("Received response from Ollama"));
     }
 
     private Mono<Throwable> handleErrorResponse(ClientResponse response) {
