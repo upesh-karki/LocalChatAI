@@ -916,3 +916,24 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 16 more
+2025-02-16 19:42:49.246050-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" not found; SQL statement:
+SELECT * FROM member m JOIN member_detail md ON m.memberid =10 [42102-232]
+2025-02-16 19:43:30.847142-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" not found; SQL statement:
+SELECT * FROM member m JOIN member_detail md ON m.memberid =md.memberid where  m.memberid =10 [42102-232]
+2025-02-16 19:44:41.128159-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" not found; SQL statement:
+SELECT * FROM member where  m.memberid =10 [42102-232]
+2025-02-16 19:44:57.175461-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" not found; SQL statement:
+SELECT * FROM member [42102-232]
+2025-02-16 19:44:58.215484-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" not found; SQL statement:
+SELECT * FROM member [42102-232]
+2025-02-16 19:44:58.745530-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" not found; SQL statement:
+SELECT * FROM member [42102-232]
+2025-02-16 19:44:58.999938-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" not found; SQL statement:
+SELECT * FROM member [42102-232]
