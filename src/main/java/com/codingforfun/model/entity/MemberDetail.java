@@ -2,9 +2,13 @@ package com.codingforfun.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity
+@ToString(exclude = "member") // Exclude the Member from MemberDetail's toString()
+@EqualsAndHashCode(exclude = "member")
 @Table(name = "member_detail", schema = "ods")
 public class MemberDetail {
     @Id
